@@ -9,6 +9,9 @@ def get_services():
 @app.route("/services", methods=["POST"])
 def add_service():
     data = request.get_json()
+    if not data.get("title") or not data.get("price"):
+        return jsonify({"error": "Title and price are required"}), 400
+
     new_service = Service(
         title=data["title"],
         description=data.get("description"),
