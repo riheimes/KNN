@@ -1,0 +1,12 @@
+{
+  "name": "knn",
+  "version": "1.0.0",
+  "description": "**Business:** This Project is about Starting up a consulting company for my mother. She is a Consultant who meets with people. This website is for company personalization tailored for her. This Website will be where people can book times to meet with her. \r **Frontend:** For this Application we will be using Next.js , React\r **Backend:** For backend we will be using Flask\r **Cloud Provider:** For the Cloud Provider we will be using AWS(Elastic Beanstalk or AWS Lambda Via Zappa)\r **Database:** PostgreSQL (AWS RDS) and MongoDB\r **Payments:** Stripe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
