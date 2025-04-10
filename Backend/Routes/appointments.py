@@ -8,6 +8,35 @@ def get_appointments():
     appointments = Appointment.query.all()
     return jsonify([a.serialize() for a in appointments])
 
+@appointments_bp.route('/<int:appointment_id>', methods=['DELETE'])
+def delete_appointment(appointment_id):
+    appointment = Appointment.query.get(appointment_id)
+    if not appointment:
+        return jsonify({"error": "Appointment not found"}), 404
+
+    db.session.delete(appointment)
+    db.session.commit()
+    return jsonify({"message": "Appointment cancelled"}), 200
+
+@appointments_bp.route('/<int:appointment_id>', methods=['PUT'])
+def update_appointment(appointment_id):
+    appointment = Appointment.query.get(appointment_id)
+    if not appointment:
+        return jsonify({"error": "Appointment not found"}), 404
+
+    data = request.get_json()
+    new_time = data.get("appointment_time")
+    if not new_time:
+        return jsonify({"error": "Missing new appointment time"}), 400
+
+    try:
+        appointment.appointment_time = datetime.strptime(new_time, '%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD HH:MM:SS"}), 400
+
+    db.session.commit()
+    return jsonify({"message": "Appointment updated successfully"}), 200
+
 @appointments_bp.route('/appointments', methods=['POST'])
 def create_appointment():
   data = request.get_json()
