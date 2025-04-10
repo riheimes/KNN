@@ -8,6 +8,10 @@ app.config.from_object(Config)
 db.init_app(app)
 CORS(app)
 
+from Routes.appointments import appointments_bp
+
+app.register_blueprint(appointments_bp, url_prefix="/appointments")
+
 @app.route("/")
 def home():
     return "Backend is running!"
@@ -34,6 +38,7 @@ def add_service():
     db.session.add(new_service)
     db.session.commit()
     return jsonify(new_service.serialize()), 201
+
 
 
 with app.app_context():

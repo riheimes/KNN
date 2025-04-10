@@ -1,5 +1,8 @@
-from flask import request, jsonify
+from flask import Flask, request, jsonify
 from models import Service
+from . import db  
+
+app = Flask(__name__)
 
 @app.route("/services", methods=["GET"])
 def get_services():
