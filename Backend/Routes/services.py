@@ -1,15 +1,13 @@
-from flask import Flask, request, jsonify
-from models import Service
-from . import db  
+from flask import Blueprint, request, jsonify
+from Models.models import db, Service  
+services_bp = Blueprint('services', __name__)
 
-app = Flask(__name__)
-
-@app.route("/services", methods=["GET"])
+@services_bp.route("/services", methods=["GET"])
 def get_services():
     services = Service.query.all()
     return jsonify([s.serialize() for s in services])
 
-@app.route("/services", methods=["POST"])
+@services_bp.route("/services", methods=["POST"])
 def add_service():
     data = request.get_json()
     if not data.get("title") or not data.get("price"):
